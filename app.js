@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
@@ -11,7 +11,12 @@ var studentRouter = require('./routes/student');
 var headRouter = require('./routes/head');
 var teacherRouter = require('./routes/teacher');
 
+//mongodb
+const connection = mongoose.connect('mongodb://localhost:27017/lms', { useNewUrlParser: true, useUnifiedTopology: true });
 var app = express();
+connection.then((db) => {
+    console.log("Connected correctly to server");
+}, (err) => { console.log(err); });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
